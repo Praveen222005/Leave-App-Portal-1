@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004080;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #004080;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .nav {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .nav a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #004080;
+      font-weight: bold;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="faculty.html">Faculty Form</a>
+  </div>
+
+  <h2>Leave Application History</h2>
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Leave Type</th>
+        <th>Purpose</th>
+        <th>Out Date</th>
+        <th>In Date</th>
+        <th>Mobile</th>
+        <th>Submitted On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    const historyData = JSON.parse(localStorage.getItem('leaveHistory')) || [];
+    const tbody = document.querySelector('#historyTable tbody');
+
+    if (historyData.length === 0) {
+      const row = document.createElement('tr');
+      const cell = document.createElement('td');
+      cell.colSpan = 9;
+      cell.textContent = "No leave applications submitted.";
+      row.appendChild(cell);
+      tbody.appendChild(row);
+    } else {
+      historyData.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.name}</td>
+          <td>${entry.idNumber}</td>
+          <td>${entry.department}</td>
+          <td>${entry.leaveType}</td>
+          <td>${entry.purpose}</td>
+          <td>${entry.outDate}</td>
+          <td>${entry.inDate}</td>
+          <td>${entry.mobile}</td>
+          <td>${entry.timestamp}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+
+</body>
+</html>

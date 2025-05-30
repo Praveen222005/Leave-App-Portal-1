@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Top Navigation Bar */
+    .top-bar {
+      background: linear-gradient(to right, #f9b233, #ff6f00);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-bar img {
+      height: 60px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 12px;
+    }
+
+    .nav-links button:hover {
+      text-decoration: underline;
+    }
+
+    /* Form Container */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 90vh;
+    }
+
+    form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004080;
+    }
+
+    label {
+      display: inline-block;
+      width: 130px;
+      vertical-align: top;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      width: calc(100% - 140px);
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .form-radio {
+      display: flex;
+      align-items: center;
+      margin-left: 130px;
+      margin-bottom: 15px;
+      gap: 20px;
+    }
+
+    .form-radio label {
+      margin: 0 10px 0 5px;
+      width: auto;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-weight: bold;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #003060;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+<img src="kitlogo.png" alt="Karpagam Logo" />    <div class="nav-links">
+      <button onclick="location.href='profile.html'">PROFILE</button>
+      <button onclick="location.href='Faculty history.html'">HISTORY</button>
+      <button onclick="location.href='feedback.html'">FEEDBACK</button>
+      <button onclick="location.href='signin.html'">SIGN IN/SIGN UP</button>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="container">
+    <form id="facultyForm">
+      <h2>Leave Application</h2>
+
+      <div class="form-group">
+        <label for="name">Name :</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="idNumber">ID Number :</label>
+        <input type="text" id="idNumber" name="idNumber" required>
+      </div>
+
+      <div class="form-group">
+        <label for="department">Department :</label>
+        <select id="department" name="department" required>
+          <option value="">Select</option>
+          <option>S & H</option>
+          <option>AI & DS</option>
+          <option>CSE</option>
+          <option>IT</option>
+          <option>ECE</option>
+          <option>EEE</option>
+          <option>MECH</option>
+        </select>
+      </div>
+
+        <div class="form-group">
+        <label for="Leave">Leave:</label>
+        <select id="Leave" name="Leave" required>
+          <option value="">Select</option>
+          <option>Leave</option>
+          <option>On Duty</option>
+          <option>CSE</option>
+          <option>IT</option>
+        </select>
+      </div>
+          <div class="form-group">
+        <label for="Leave">Leave:</label>
+        <select id="Leave" name="Leave" required>
+          <option value="">Select</option>
+          <option>Leave</option>
+          <option>On Duty</option>
+          <option>CSE</option>
+          <option>IT</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="purpose">Purpose :</label>
+        <textarea id="purpose" name="purpose" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="proof">Proof :</label>
+        <input type="file" id="proof" name="proof" accept="image/*,application/pdf">
+      </div>
+
+      <div class="form-group">
+        <label for="outDate">Out Date :</label>
+        <input type="date" id="outDate" name="outDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="inDate">In Date :</label>
+        <input type="date" id="inDate" name="inDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile Number :</label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+      </div>
+
+      <button type="submit">APPLY</button>
+    </form>
+  </div>
+  <!-- Leave Section (fixed duplicate ID issue) -->
+<div class="form-group">
+  <label for="leaveType">Leave Type :</label>
+  <select id="leaveType" name="leaveType" required>
+    <option value="">Select</option>
+    <option>Leave</option>
+    <option>On Duty</option>
+  </select>
+</div>
+
+
+  <script>
+    document.getElementById('facultyForm').addEventListener('submit', function(e) {
+      if (!this.checkValidity()) {
+        alert("Please fill out all required fields.");
+        e.preventDefault();
+      } else {
+        alert("Form submitted successfully!");
+      }
+    });
+  
+  document.getElementById('facultyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById('name').value,
+      idNumber: document.getElementById('idNumber').value,
+      department: document.getElementById('department').value,
+      leaveType: document.getElementById('Leave').value,
+      purpose: document.getElementById('purpose').value,
+      outDate: document.getElementById('outDate').value,
+      inDate: document.getElementById('inDate').value,
+      mobile: document.getElementById('mobile').value,
+      timestamp: new Date().toLocaleString()
+    };
+
+    let historyData = JSON.parse(localStorage.getItem('leaveHistory')) || [];
+    historyData.push(formData);
+    localStorage.setItem('leaveHistory', JSON.stringify(historyData));
+
+    alert("Form submitted successfully!");
+    this.reset();
+  });
+ document.getElementById('facultyForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // prevent page reload
+
+    if (!this.checkValidity()) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    const formData = {
+      name: document.getElementById('name').value,
+      idNumber: document.getElementById('idNumber').value,
+      department: document.getElementById('department').value,
+      leaveType: document.getElementById('leaveType').value,
+      purpose: document.getElementById('purpose').value,
+      outDate: document.getElementById('outDate').value,
+      inDate: document.getElementById('inDate').value,
+      mobile: document.getElementById('mobile').value,
+      timestamp: new Date().toLocaleString()
+    };
+
+    let historyData = JSON.parse(localStorage.getItem('leaveHistory')) || [];
+    historyData.push(formData);
+    localStorage.setItem('leaveHistory', JSON.stringify(historyData));
+
+    alert("Form submitted successfully!");
+    this.reset();
+  });
+
+  </script>
+
+</body>
+</html>

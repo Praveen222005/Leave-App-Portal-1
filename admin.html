@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Leave Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004080;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #004080;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .status-buttons button {
+      margin-right: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .accept {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .reject {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .status {
+      font-weight: bold;
+    }
+
+    .nav {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .nav a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #004080;
+      font-weight: bold;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a href="index.html">Home</a>
+  </div>
+
+  <h1>Admin Dashboard - Leave Requests</h1>
+
+  <table id="adminTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Leave Type</th>
+        <th>Purpose</th>
+        <th>Out Date</th>
+        <th>In Date</th>
+        <th>Mobile</th>
+        <th>Submitted</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    const tableBody = document.querySelector("#adminTable tbody");
+    let leaveData = JSON.parse(localStorage.getItem("leaveHistory")) || [];
+
+    function renderTable() {
+      tableBody.innerHTML = '';
+      leaveData.forEach((entry, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry.name}</td>
+          <td>${entry.idNumber}</td>
+          <td>${entry.department}</td>
+          <td>${entry.leaveType}</td>
+          <td>${entry.purpose}</td>
+          <td>${entry.outDate}</td>
+          <td>${entry.inDate}</td>
+          <td>${entry.mobile}</td>
+          <td>${entry.timestamp}</td>
+          <td class="status">${entry.status || 'Pending'}</td>
+          <td class="status-buttons">
+            <button class="accept" onclick="updateStatus(${index}, 'Accepted')">Accept</button>
+            <button class="reject" onclick="updateStatus(${index}, 'Rejected')">Reject</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function updateStatus(index, status) {
+      leaveData[index].status = status;
+      localStorage.setItem("leaveHistory", JSON.stringify(leaveData));
+      renderTable();
+    }
+
+    renderTable();
+   
+  if (sessionStorage.getItem("adminLogin") !== "true") {
+    window.location.href = "admin_login.html";
+  }
+
+
+  </script>
+</body>
+</html>

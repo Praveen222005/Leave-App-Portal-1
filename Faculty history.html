@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004080;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #004080;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .nav {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .nav a {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #004080;
+      font-weight: bold;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #777;
+      font-style: italic;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation bar -->
+  <div class="nav">
+    <a href="1stpage.html">Home</a>
+    <a href="faculty.html">Faculty Form</a>
+  </div>
+
+  <h2>Leave Application History</h2>
+
+  <!-- Leave history table -->
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Leave Type</th>
+        <th>Purpose</th>
+        <th>Out Date</th>
+        <th>In Date</th>
+        <th>Mobile</th>
+        <th>Submitted On</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- JavaScript will fill data here -->
+    </tbody>
+  </table>
+
+  <script>
+    const tableBody = document.getElementById('tableBody');
+    const leaveHistory = JSON.parse(localStorage.getItem('leaveHistory')) || [];
+
+    if (leaveHistory.length === 0) {
+      const noDataRow = document.createElement('tr');
+      const noDataCell = document.createElement('td');
+      noDataCell.colSpan = 9;
+      noDataCell.className = 'no-data';
+      noDataCell.textContent = 'No leave applications submitted.';
+      noDataRow.appendChild(noDataCell);
+      tableBody.appendChild(noDataRow);
+    } else {
+      leaveHistory.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.name || ''}</td>
+          <td>${entry.idNumber || ''}</td>
+          <td>${entry.department || ''}</td>
+          <td>${entry.leaveType || ''}</td>
+          <td>${entry.purpose || ''}</td>
+          <td>${entry.outDate || ''}</td>
+          <td>${entry.inDate || ''}</td>
+          <td>${entry.mobile || ''}</td>
+          <td>${entry.timestamp || ''}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Leave Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: #003366;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .legend span {
+      padding: 5px 15px;
+      border-radius: 5px;
+    }
+
+    .year-I { background-color: #add8e6; }     /* Light Blue */
+    .year-II { background-color: #ffc0cb; }    /* Pink */
+    .year-III { background-color: #ffff99; }   /* Yellow */
+    .year-IV { background-color: #e6ccff; }    /* Light Purple */
+
+    table {
+      width: 95%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #003366;
+      color: white;
+    }
+
+    .actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .accept {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .reject {
+      background-color: #dc3545;
+      color: white;
+      margin-left: 5px;
+    }
+
+    .status {
+      font-weight: bold;
+    }
+
+    .home-link {
+      float: right;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: #003366;
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="hostel admin login.html" class="home-link">LOGOUT</a>
+  <h1>Admin Dashboard - Out Pass Requests</h1>
+
+  <div class="legend">
+    <span class="year-I">I Year</span>
+    <span class="year-II">II Year</span>
+    <span class="year-III">III Year</span>
+    <span class="year-IV">IV Year</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Leave Type</th>
+        <th>Purpose</th>
+        <th>Out Date</th>
+        <th>In Date</th>
+        <th>Mobile</th>
+        <th>Submitted</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="leaveTableBody">
+      <!-- Data will be inserted by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    const leaveData = JSON.parse(localStorage.getItem("outingHistory")) || [];
+    const tbody = document.getElementById("leaveTableBody");
+
+    leaveData.forEach((req, index) => {
+      const row = document.createElement("tr");
+      row.className = `year-${req.year}`;
+
+      row.innerHTML = `
+        <td>${req.name}</td>
+        <td>${req.idNumber}</td>
+        <td>${req.department}</td>
+        <td>Outing Pass</td>
+        <td>${req.purpose}</td>
+        <td>${req.outDate} ${req.outTime}</td>
+        <td>${req.inDate} ${req.inTime}</td>
+        <td>${req.studentMobile}</td>
+        <td>${new Date().toLocaleString()}</td>
+        <td class="status" id="status-${index}">Pending</td>
+        <td class="actions">
+          <button class="accept" onclick="acceptRequest(${index}, '${req.studentMobile}')">Accept</button>
+          <button class="reject" onclick="rejectRequest(${index})">Reject</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    function acceptRequest(index, mobile) {
+      document.getElementById(`status-${index}`).innerText = "Accepted";
+      alert(`Message sent to ${mobile}: Your outing pass is accepted.`);
+    }
+
+    function rejectRequest(index) {
+      document.getElementById(`status-${index}`).innerText = "Rejected";
+    }
+  </script>
+
+</body>
+</html>

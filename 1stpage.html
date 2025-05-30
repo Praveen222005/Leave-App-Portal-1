@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <title>Leave Application Portal - Karpagam Institute of Technology</title>
+  <style>
+    /* (same CSS as before) */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      background-color: #fff;
+    }
+
+    .header {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .header-left img {
+      height: 45px;
+      margin-right: 15px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #004080;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 14px;
+      transition: background 0.3s;
+    }
+
+    .nav a:hover {
+      background-color: #e6f0ff;
+    }
+
+    .nav .signin {
+      background-color: #004080;
+      color: white;
+    }
+
+    .hero {
+      background: url('kitcamp1.jpg') no-repeat center -192px;
+      background-size: cover;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 24px;
+      color: black;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .choose {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      flex-wrap: wrap;
+    }
+
+    .choose h2 {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .button {
+      background-color: #005f91;
+      color: white;
+      padding: 20px 50px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      min-width: 160px;
+    }
+
+    .button:hover {
+      background-color: #004466;
+    }
+
+    .or-text {
+      font-size: 18px;
+      font-weight: bold;
+      color: #444;
+      user-select: none;
+      align-self: center;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-info img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .user-info span {
+      font-size: 12px;
+      color: #004080;
+    }
+
+    .logout-btn {
+      background-color: #c62828;
+      color: white;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background-color: #a00000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with Logo and Navigation -->
+  <div class="header">
+    <div class="header-left">
+      <img src="kitlogo.png" alt="Karpagam Logo" />
+    </div>
+    <div class="nav" id="navbar">
+      <a href="profile.html">PROFILE</a>
+      <a href="history1.html">HISTORY</a>
+      <a href="feedback.html">FEEDBACK</a>
+      <a href="login.html" class="signin">sign in / sign up</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>LEAVE APPLICATION PORTAL</h1>
+  </div>
+
+  <!-- User Type Selection -->
+  <div class="choose">
+    <h2>You are a</h2>
+    <button class="button" onclick="location.href='faculty.html'">FACULTY</button>
+    <div class="or-text">OR</div>
+    <button class="button" onclick="location.href='student.html'">STUDENT</button>
+  </div>
+
+  <!-- Script -->
+  <script>
+    window.onload = function () {
+      const userData = localStorage.getItem('user');
+      const nav = document.getElementById('navbar');
+      const signinLink = document.querySelector('.signin');
+
+      if (userData) {
+        const user = JSON.parse(userData);
+        if (signinLink) signinLink.style.display = 'none';
+
+        const userDiv = document.createElement('div');
+        userDiv.className = 'user-info';
+
+        const img = document.createElement('img');
+        img.src = user.picture;
+        img.alt = 'User';
+
+        const name = document.createElement('span');
+        name.textContent = user.name + " | " + user.email;
+
+        const logoutBtn = document.createElement('button');
+        logoutBtn.className = 'logout-btn';
+        logoutBtn.textContent = 'Logout';
+        logoutBtn.onclick = function () {
+          localStorage.removeItem('user');
+          window.location.href = 'login.html';
+        };
+
+        userDiv.appendChild(img);
+        userDiv.appendChild(name);
+        userDiv.appendChild(logoutBtn);
+        nav.appendChild(userDiv);
+      }
+    };
+  </script>
+
+</body>
+</html>

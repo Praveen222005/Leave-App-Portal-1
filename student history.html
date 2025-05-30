@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student History</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .top-bar {
+      background: linear-gradient(to right, #ff56bc, #40ff00);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-bar img {
+      height: 60px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 12px;
+    }
+
+    .nav-links button:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    h2 {
+      color: #004080;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #004080;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <img src="kitlogo.png" alt="Karpagam Logo" />
+    <div class="nav-links">
+      <button onclick="location.href='profile.html'">PROFILE</button>
+      <button onclick="location.href='student history.html'">HISTORY</button>
+      <button onclick="location.href='feedback.html'">FEEDBACK</button>
+      <button onclick="location.href='signin.html'">SIGN IN/SIGN UP</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Leave Application History</h2>
+    <table id="leaveTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Year</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Purpose</th>
+          <th>Out Date</th>
+          <th>In Date</th>
+          <th>Mobile</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Outing Pass History</h2>
+    <table id="outingTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Year</th>
+          <th>Department</th>
+          <th>Purpose</th>
+          <th>Out Date</th>
+          <th>Out Time</th>
+          <th>In Date</th>
+          <th>In Time</th>
+          <th>Student Mobile</th>
+          <th>Parent Mobile</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    // Populate Leave History Table
+    const leaveData = JSON.parse(localStorage.getItem('leaveHistory')) || [];
+    const leaveTable = document.querySelector('#leaveTable tbody');
+
+    leaveData.forEach(entry => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${entry.name}</td>
+        <td>${entry.idNumber}</td>
+        <td>${entry.year}</td>
+        <td>${entry.department}</td>
+        <td>${entry.status}</td>
+        <td>${entry.purpose}</td>
+        <td>${entry.outDate}</td>
+        <td>${entry.inDate}</td>
+        <td>${entry.mobile}</td>
+      `;
+      leaveTable.appendChild(row);
+    });
+
+    // Populate Outing History Table
+    const outingData = JSON.parse(localStorage.getItem('outingHistory')) || [];
+    const outingTable = document.querySelector('#outingTable tbody');
+
+    outingData.forEach(entry => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${entry.name}</td>
+        <td>${entry.idNumber}</td>
+        <td>${entry.year}</td>
+        <td>${entry.department}</td>
+        <td>${entry.purpose}</td>
+        <td>${entry.outDate}</td>
+        <td>${entry.outTime}</td>
+        <td>${entry.inDate}</td>
+        <td>${entry.inTime}</td>
+        <td>${entry.studentMobile}</td>
+        <td>${entry.parentMobile}</td>
+      `;
+      outingTable.appendChild(row);
+    });
+  </script>
+
+</body>
+</html>
